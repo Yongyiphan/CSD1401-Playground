@@ -4,13 +4,12 @@
 #include <stdio.h>
 
 
-int cRad = 30, lineGap = 10, a = 255, currentCar, totalCars;
-double rotationSpeed = 0.05, accelerationSpeed = 5;
+int cRad = 150, lineGap = 10, a = 255, currentCar, totalCars;
+double rotationSpeed = 0.1, accelerationSpeed = 10;
 //init starting x,y for all three circle /cars
 int swidth, sheight;
 Car one, two, three;
 Car* CarArr[3];
-CP_Color onec, twoc, threec;
 
 void Car_Level_Init()
 {
@@ -20,11 +19,8 @@ void Car_Level_Init()
 	sheight = CP_System_GetWindowHeight();
 	//Init car structs
 	CP_Color triC = CP_Color_Create(150, 150, 150, a);
-	threec = CP_Color_Create(0, 0, 200, a);
 	CP_Settings_EllipseMode(CP_POSITION_CENTER);
 	currentCar = 1;
-
-
 
 	one = CreateCar((Circle) { cRad, swidth / 2, sheight / 2 }, "Up", CP_Color_Create(200, 0, 0, a), triC);
 	two = CreateCar((Circle) { cRad, swidth / 4, sheight / 4 }, "Down", CP_Color_Create(0, 200, 0, a), triC);
@@ -93,13 +89,6 @@ void Car_Level_Update()
 	for (int i = 0; i < totalCars; i++) {
 		DrawCar(&*CarArr[i]);
 	}
-
-
-	//CP_Graphics_DrawCircle(one.coor.x, one.coor.y, one.rad);
-	//CP_Settings_Fill(twoc);
-	//CP_Graphics_DrawCircle(two.coor.x, two.coor.y, two.rad);
-	//CP_Settings_Fill(threec);
-	//CP_Graphics_DrawCircle(three.coor.x, three.coor.y, three.rad);
 
 
 	if (CP_Input_KeyDown(KEY_M)) {

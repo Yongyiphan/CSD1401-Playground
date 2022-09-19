@@ -8,6 +8,7 @@ typedef struct Coordinates{
 	float y;
 }Coor;
 
+
 typedef struct ReectObj{
 	int w;
 	int h;

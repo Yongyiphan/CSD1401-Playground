@@ -22,8 +22,8 @@ int IsCircleClicked(float circle_center_x, float circle_center_y, float diameter
 	//return 0 if true, else 1;
 	//circle origin point (x, y) = (circle_center_x, circle_center_y)
 	//get distance from origin to mouse
-	double dist = sqrt(pow(click_x - circle_center_x, 2) + pow(click_y - circle_center_y, 2));
-	if (dist <= diameter / 2) {
+	double dist = pow(click_x - circle_center_x, 2) + pow(click_y - circle_center_y, 2);
+	if (dist <= pow(diameter / 2,2) ) {
 		return 0;
 	}
 	return 1;
