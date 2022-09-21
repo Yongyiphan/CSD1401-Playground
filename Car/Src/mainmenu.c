@@ -13,7 +13,7 @@ void Main_Menu_Init()
 	swidth = 800;
 	sheight = 600;
 	CP_System_SetWindowSize(swidth, sheight);
-	//CP_Settings_RectMode(CP_POSITION_CENTER);
+	CP_Settings_RectMode(CP_POSITION_CENTER);
 	
 }
 
@@ -39,15 +39,17 @@ void Main_Menu_Update()
 	//CP_Settings_Restore();
 	CP_Settings_Fill(CP_Color_Create(255, 100, 100, 255));
 	
-	Start = (Rect){ .w = rectW, .h = rectH, { swidth/2 - rectWOff, sheight/2 - rectHOff} };
-	End = (Rect){.w = rectW, .h = rectH, {swidth / 2 - rectWOff, sheight / 2 - rectHOff + centeroffset}};
+	Start = (Rect){ .w = rectW, .h = rectH, { swidth / 2, sheight / 2}, "Start" };
+	End   = (Rect){ .w = rectW, .h = rectH, {swidth / 2, sheight / 2 + centeroffset}, "End" };
 
 	CP_Graphics_DrawRect(Start.coor.x, Start.coor.y, Start.w, Start.h);
 	CP_Graphics_DrawRect(End.coor.x, End.coor.y, End.w, End.h);
 	
-	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-	CP_Font_DrawText("Start", (float) swidth / 2 -rectWOff/3.5, (float) sheight / 2 + 4);
-	CP_Font_DrawText("End",(float) swidth/2 - rectWOff/4,(float) sheight/2 + centeroffset + 4);
+	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+	CP_Settings_TextSize(30);
+	CP_Font_DrawText(&*Start.name, Start.coor.x, Start.coor.y);
+	CP_Font_DrawText(&*End.name, End.coor.x, End.coor.y);
+	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	
 	if (CP_Input_MouseTriggered(MOUSE_BUTTON_LEFT)) {
 		if (IsAreaClicked(Start.coor.x,Start.coor.y, Start.w, Start.h, CP_Input_GetMouseX(), CP_Input_GetMouseY()) == 0) {

@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 
-int cRad = 150, lineGap = 10, a = 255, currentCar, totalCars;
+int cRad = 50, lineGap = 10, a = 255, currentCar, totalCars;
 double rotationSpeed = 0.1, accelerationSpeed = 10;
 //init starting x,y for all three circle /cars
 int swidth, sheight;
@@ -14,7 +14,7 @@ Car* CarArr[3];
 void Car_Level_Init()
 {
 	printf("Im in car\n");
-	CP_System_SetWindowSize(1080, 800);
+	//CP_System_SetWindowSize(1080, 800);
 	swidth = CP_System_GetWindowWidth();
 	sheight = CP_System_GetWindowHeight();
 	//Init car structs
@@ -58,29 +58,29 @@ void Car_Level_Update()
 		Car* cCar = &*CarArr[currentCar];
 		CP_Settings_StrokeWeight(2.0f);
 		if (CP_Input_KeyDown(KEY_D)) {
-			cCar->triangle.rot -= rotationSpeed;
+			cCar->triangle.rot += rotationSpeed;
 		}
 		else if (CP_Input_KeyDown(KEY_A)) {
-			cCar->triangle.rot += rotationSpeed;
+			cCar->triangle.rot -= rotationSpeed;
 		}
 
 		else if (CP_Input_KeyDown(KEY_W)) {
 			CP_Vector vec = AngleToVector(cCar->triangle.rot);
 			float nx = cCar->circle.coor.x + (vec.x * accelerationSpeed);
-			float ny = cCar->circle.coor.y - (vec.y * accelerationSpeed);
+			float ny = cCar->circle.coor.y + (vec.y * accelerationSpeed);
 			if (nx + cCar->circle.rad <= swidth && nx - cCar->circle.rad >= 0 && ny + cCar->circle.rad <= sheight && ny - cCar->circle.rad >= 0) {
 				cCar->circle.coor.x += vec.x * accelerationSpeed;
-				cCar->circle.coor.y -= vec.y * accelerationSpeed;
+				cCar->circle.coor.y += vec.y * accelerationSpeed;
 			}
 
 		}
 		else if (CP_Input_KeyDown(KEY_S)) {
 			CP_Vector vec = AngleToVector(cCar->triangle.rot);
 			float nx = cCar->circle.coor.x - (vec.x * accelerationSpeed);
-			float ny = cCar->circle.coor.y + (vec.y * accelerationSpeed);
+			float ny = cCar->circle.coor.y - (vec.y * accelerationSpeed);
 			if (nx + cCar->circle.rad <= swidth && nx - cCar->circle.rad >= 0 && ny + cCar->circle.rad <= sheight && ny - cCar->circle.rad >= 0) {
 				cCar->circle.coor.x -= vec.x * accelerationSpeed;
-				cCar->circle.coor.y += vec.y * accelerationSpeed;
+				cCar->circle.coor.y -= vec.y * accelerationSpeed;
 				}
 			}
 

@@ -13,7 +13,9 @@ typedef struct ReectObj{
 	int w;
 	int h;
 	Coor coor;
+	char *name;
 }Rect;
+
 
 typedef struct CircleObj {
 	int rad;
