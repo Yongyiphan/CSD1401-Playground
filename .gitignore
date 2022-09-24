@@ -3,7 +3,8 @@
 **/.tmp
 **/Trash
 **/.vs
-
+*/.vs
+/.vs
 
 **vcxproj.user
 **vcxproj.filters
