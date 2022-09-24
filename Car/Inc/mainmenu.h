@@ -13,7 +13,9 @@ typedef struct ReectObj{
 	int w;
 	int h;
 	Coor coor;
+	char *name;
 }Rect;
+
 
 typedef struct CircleObj {
 	int rad;
@@ -43,7 +45,6 @@ typedef struct Car {
 void Main_Menu_Init(void);
 void Main_Menu_Update(void);
 void Main_Menu_Exit(void);
-
 #endif // 
 
 

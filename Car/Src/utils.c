@@ -69,9 +69,12 @@ Car CreateCar(Circle circle, char *startPoint, CP_Color circleC, CP_Color triC) 
 	double a = fmod(tRad, modMax);
 	double b = fmod(lRad, modMax);
 	double c = fmod(rRad, modMax);
-	P1 = (Coor){ abs(circle.rad * cosf(a) + circle.coor.x), abs(circle.rad * sinf(a) - circle.coor.y) };
-	P2 = (Coor){ abs(btm * cosf(b) + circle.coor.x), abs(btm * sinf(b) - circle.coor.y) };
-	P3 = (Coor){ abs(btm * cosf(c) + circle.coor.x), abs(btm * sinf(c) - circle.coor.y) };
+	//P1 = (Coor){ abs(circle.rad * cosf(a) + circle.coor.x), abs(circle.rad * sinf(a) + circle.coor.y) };
+	//P2 = (Coor){ abs(btm * cosf(b) + circle.coor.x), abs(btm * sinf(b) + circle.coor.y) };
+	//P3 = (Coor){ abs(btm * cosf(c) + circle.coor.x), abs(btm * sinf(c) + circle.coor.y) };
+	P1 = (Coor){ circle.rad * cosf(a) + circle.coor.x, circle.rad * sinf(a) + circle.coor.y };
+	P2 = (Coor){ btm * cosf(b) + circle.coor.x, btm * sinf(b) + circle.coor.y };
+	P3 = (Coor){ btm * cosf(c) + circle.coor.x, btm * sinf(c) + circle.coor.y };
 	Triangle T = { P1, P2, P3, tRad, angle, btm };
 	Car obj = { circle, T , circleC, triC};
 	
@@ -90,15 +93,24 @@ void UpdateCarRotation(Car* car) {
 	double b = fmod(car->triangle.rot + car->triangle.angle, 6.28);
 	double c = fmod(car->triangle.rot - car->triangle.angle, 6.28);
 
-	car->triangle.P1.x = abs(car->circle.rad * cosf(a) + car->circle.coor.x);
+	/*car->triangle.P1.x = abs(car->circle.rad * cosf(a) + car->circle.coor.x);
 	car->triangle.P1.y = abs(car->circle.rad * sinf(a) - car->circle.coor.y);
 	
 	car->triangle.P2.x = abs(car->triangle.btm * cosf(b) + car->circle.coor.x);
 	car->triangle.P2.y = abs(car->triangle.btm * sinf(b) - car->circle.coor.y);
 
 	car->triangle.P3.x = abs(car->triangle.btm * cosf(c) + car->circle.coor.x);
-	car->triangle.P3.y = abs(car->triangle.btm * sinf(c) - car->circle.coor.y);
+	car->triangle.P3.y = abs(car->triangle.btm * sinf(c) - car->circle.coor.y);*/
+
+		
+	car->triangle.P1.x = car->circle.rad * cosf(a) + car->circle.coor.x;
+	car->triangle.P1.y = car->circle.rad * sinf(a) + car->circle.coor.y;
 	
+	car->triangle.P2.x = car->triangle.btm * cosf(b) + car->circle.coor.x;
+	car->triangle.P2.y = car->triangle.btm * sinf(b) + car->circle.coor.y;
+
+	car->triangle.P3.x = car->triangle.btm * cosf(c) + car->circle.coor.x;
+	car->triangle.P3.y = car->triangle.btm * sinf(c) + car->circle.coor.y;
 }
 
 int CarSelection(Car* CarArr[], int totalCars, float Mouse_Input_x, float Mouse_Input_y) {
