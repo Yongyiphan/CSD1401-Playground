@@ -6,6 +6,7 @@
 #define GOL_GRID_COLS 30
 #define GOL_GRID_ROWS 30
 #define GOL_GRID_BUFFERS 2
+#define CELL_LENGTH 15
 
 #define GOL_ALIVE 1
 #define GOL_DEAD 0
@@ -19,14 +20,16 @@ int gIsPaused;
 int gGrids[GOL_GRID_BUFFERS][GOL_GRID_ROWS][GOL_GRID_COLS];
 
 //width and height of each cell
-int windowW, windowH, cellW, cellH;
 CP_Color DeadColor, AliveColor;
+//display grid, reference grid
+int dgrid, rgrid;
 
 /* Feel free to declare your own variables here */
 
 
 void game_init(void)
-{   
+{  
+    CP_System_SetWindowSize(CELL_LENGTH * GOL_GRID_ROWS, CELL_LENGTH * GOL_GRID_COLS);
     DeadColor = CP_Color_Create(100, 100, 100, 255);
     AliveColor = CP_Color_Create(200, 200, 200, 255);
     /* Set every grids' cells as 'dead' */
@@ -37,12 +40,6 @@ void game_init(void)
             }
         }
     }
-
-    windowW = CP_System_GetWindowWidth();
-    windowH = CP_System_GetWindowHeight();
-    cellW = windowW / GOL_GRID_COLS;
-    cellH = windowH / GOL_GRID_ROWS;
-
 
     /*********************************************************
     *  Let's start with gGrids[0] as the 'reference grid'
@@ -59,27 +56,53 @@ void game_init(void)
 
     /* We start unpaused */
     gIsPaused = FALSE;
+    dgrid = 0;
 
     /* Initialization of your other variables here */
 }
 
 void game_update(void)
 {
+
     //Cal Cells
-    //Draw Grid;
-    int cgrid = 0;
-    for (int r = 0; r < GOL_GRID_ROWS; r++) {
-        for (int c = 0; c < GOL_GRID_COLS; c++) {
-            if (gGrids[cgrid][r][c] == GOL_DEAD) {
-                CP_Settings_Fill(DeadColor);
+
+    if (CP_Input_KeyTriggered(KEY_SPACE)) {
+        gIsPaused = gIsPaused == FALSE ? TRUE : FALSE;
+    }
+    if (gIsPaused == TRUE) {
+        //allow input
+    }
+    else {
+        //Draw Grid;
+        //using rgrid, check rules
+        //modify dgrid. swap rgrid, dgrid values
+        //Any live cell with fewer than two live neighbors dies (emulates underpopulation).
+		//Any live cell with two or three live neighbors lives on.
+		//Any live cell with more than three live neighbors dies (emulates overpopulation).
+		//Any dead cell with exactly three live neighbors becomes a live cell (emulates reproduction).
+        
+        for (int r = 0; r <= GOL_GRID_ROWS; r++) {
+            for (int c = 0; c <= GOL_GRID_COLS; c++) {
+                
             }
-            else if (gGrids[cgrid][r][c] == GOL_ALIVE) {
-                CP_Settings_Fill(AliveColor);
+        }
+
+
+        for (int r = 0; r <= GOL_GRID_ROWS; r++) {
+            for (int c = 0; c <= GOL_GRID_COLS; c++) {
+                if (gGrids[dgrid][r][c] == GOL_DEAD) {
+                    CP_Settings_Fill(DeadColor);
+                }
+                else if (gGrids[dgrid][r][c] == GOL_ALIVE) {
+                    CP_Settings_Fill(AliveColor);
+                }
+                CP_Graphics_DrawRect(r * CELL_LENGTH, c * CELL_LENGTH, CELL_LENGTH, CELL_LENGTH);
+
             }
-            
-            CP_Graphics_DrawRect(r * cellW, c * cellH, cellW, cellH);
         }
     }
+    printf("%d", gIsPaused);
+
 }
 
 void game_exit(void)

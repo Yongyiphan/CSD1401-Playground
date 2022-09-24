@@ -1,8 +1,8 @@
 #include <cprocessing.h>
 #include <stdio.h>
 
-void DrawGrid(int grid[30][30]) {
-
+void DrawGrid(void) {
+	
 	printf("H");
 }
 
