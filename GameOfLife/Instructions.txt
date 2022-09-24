@@ -1,0 +1,11 @@
+IF you are planning to rename the project
+1. Open the .sln file in notepad, rename all project files there
+2. Rename all project files in file explorer
+3. Rebuild solutions
+
+Git Command to remove origin/ detach it from online repo
+> git remote rm origin
+
+If you already have a online repo url
+> git remote set-url origin <new repo url>
+
