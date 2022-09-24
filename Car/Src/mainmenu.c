@@ -52,11 +52,11 @@ void Main_Menu_Update()
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	
 	if (CP_Input_MouseTriggered(MOUSE_BUTTON_LEFT)) {
-		if (IsAreaClicked(Start.coor.x,Start.coor.y, Start.w, Start.h, CP_Input_GetMouseX(), CP_Input_GetMouseY()) == 0) {
+		if (IsAreaClicked(Start.coor.x - rectWOff, Start.coor.y - rectHOff, Start.w, Start.h, CP_Input_GetMouseX(), CP_Input_GetMouseY()) == 0) {
 			CP_Engine_SetNextGameState(Car_Level_Init, Car_Level_Update, Car_Leve_Exit);
 			printf("Legoo Car\n");
 		}
-		if (IsAreaClicked(End.coor.x, End.coor.y, End.w, End.h, CP_Input_GetMouseX(), CP_Input_GetMouseY()) == 0) {
+		if (IsAreaClicked(End.coor.x - rectWOff, End.coor.y - rectHOff, End.w, End.h, CP_Input_GetMouseX(), CP_Input_GetMouseY()) == 0) {
 			CP_Engine_Terminate();
 		}
 	}
