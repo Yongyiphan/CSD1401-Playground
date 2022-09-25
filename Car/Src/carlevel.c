@@ -38,21 +38,20 @@ void Car_Level_Update()
 	CP_Graphics_ClearBackground(CP_Color_Create(150, 150, 150, 255));
 	totalCars = (sizeof(CarArr) / sizeof(&CarArr[0]));
 	//Unecessary #Start
-	CP_Settings_Save();
-	CP_Settings_StrokeWeight(1.0f);
-	for (int i = 0; i <= swidth / lineGap; i++) {
-		//Draw X lines
-		CP_Graphics_DrawLine(i * lineGap, 0, i * lineGap, sheight);
-	}
-	for (int i = 0; i <= sheight / lineGap; i++) {
-		//Draw Y lines
-		CP_Graphics_DrawLine(0, i * lineGap, swidth, i * lineGap);
-	}
+	//CP_Settings_StrokeWeight(1.0f);
+	//for (int i = 0; i <= swidth / lineGap; i++) {
+	//	//Draw X lines
+	//	CP_Graphics_DrawLine(i * lineGap, 0, i * lineGap, sheight);
+	//}
+	//for (int i = 0; i <= sheight / lineGap; i++) {
+	//	//Draw Y lines
+	//	CP_Graphics_DrawLine(0, i * lineGap, swidth, i * lineGap);
+	//}
 	//Unecessary #End
 
 	//Circle default origin = center;
 	if (CP_Input_MouseTriggered(MOUSE_BUTTON_LEFT)) {
-		currentCar = CarSelection(&CarArr,totalCars, CP_Input_GetMouseX(), CP_Input_GetMouseY());
+		currentCar = CarSelection(&CarArr, totalCars, CP_Input_GetMouseX(), CP_Input_GetMouseY());
 	}
 	if (currentCar < totalCars) {
 		Car* cCar = &*CarArr[currentCar];
@@ -60,11 +59,11 @@ void Car_Level_Update()
 		if (CP_Input_KeyDown(KEY_D)) {
 			cCar->triangle.rot += rotationSpeed;
 		}
-		else if (CP_Input_KeyDown(KEY_A)) {
+		if (CP_Input_KeyDown(KEY_A)) {
 			cCar->triangle.rot -= rotationSpeed;
 		}
 
-		else if (CP_Input_KeyDown(KEY_W)) {
+		if (CP_Input_KeyDown(KEY_W)) {
 			CP_Vector vec = AngleToVector(cCar->triangle.rot);
 			float nx = cCar->circle.coor.x + (vec.x * accelerationSpeed);
 			float ny = cCar->circle.coor.y + (vec.y * accelerationSpeed);
@@ -74,15 +73,15 @@ void Car_Level_Update()
 			}
 
 		}
-		else if (CP_Input_KeyDown(KEY_S)) {
+		if (CP_Input_KeyDown(KEY_S)) {
 			CP_Vector vec = AngleToVector(cCar->triangle.rot);
 			float nx = cCar->circle.coor.x - (vec.x * accelerationSpeed);
 			float ny = cCar->circle.coor.y - (vec.y * accelerationSpeed);
 			if (nx + cCar->circle.rad <= swidth && nx - cCar->circle.rad >= 0 && ny + cCar->circle.rad <= sheight && ny - cCar->circle.rad >= 0) {
 				cCar->circle.coor.x -= vec.x * accelerationSpeed;
 				cCar->circle.coor.y -= vec.y * accelerationSpeed;
-				}
 			}
+		}
 
 		UpdateCarRotation(cCar);
 	}
