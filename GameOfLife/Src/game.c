@@ -4,10 +4,10 @@
 #include <math.h>
 
 
-#define GOL_GRID_COLS 40
-#define GOL_GRID_ROWS 40
+#define GOL_GRID_COLS 30
+#define GOL_GRID_ROWS 30
 #define GOL_GRID_BUFFERS 2
-#define CELL_LENGTH 10
+#define CELL_LENGTH 15
 
 #define GOL_ALIVE 1
 #define GOL_DEAD 0
@@ -85,7 +85,6 @@ void game_update(void)
         //Any live cell with two or three live neighbors lives on.
         //Any live cell with more than three live neighbors dies (emulates overpopulation).
         //Any dead cell with exactly three live neighbors becomes a live cell (emulates reproduction).
-        CP_Settings_StrokeWeight(1.0f);
         for (int r = 0; r < GOL_GRID_ROWS; r++) {
             for (int c = 0; c < GOL_GRID_COLS; c++) {
                 //check for neighbours
@@ -120,6 +119,7 @@ void game_update(void)
             }
         }
     }
+    CP_Settings_StrokeWeight(0.5f);
     for (int r = 0; r < GOL_GRID_ROWS; r++) {
         for (int c = 0; c < GOL_GRID_COLS; c++) {
             CP_Settings_Fill(DeadColor);
