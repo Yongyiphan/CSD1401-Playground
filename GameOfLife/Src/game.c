@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "cprocessing.h"
 #include <utils.h>
+#include <math.h>
 
 
 #define GOL_GRID_COLS 40
@@ -70,6 +71,11 @@ void game_update(void)
     }
     if (gIsPaused == TRUE) {
         //allow input
+        if (CP_Input_MouseClicked()) {
+            int row = floor(CP_Input_GetMouseX() / CELL_LENGTH);
+            int col = floor(CP_Input_GetMouseY() / CELL_LENGTH);
+            gGrids[dGrid][row][col] = gGrids[dGrid][row][col] == GOL_ALIVE ? GOL_DEAD : GOL_ALIVE;
+        }
     }
     else {
         //Draw Grid;
@@ -113,18 +119,17 @@ void game_update(void)
                 }
             }
         }
-        for (int r = 0; r < GOL_GRID_ROWS; r++) {
-            for (int c = 0; c < GOL_GRID_COLS; c++) {
-                CP_Settings_Fill(DeadColor);
-                if (gGrids[dGrid][r][c] == GOL_ALIVE) {
-                    CP_Settings_Fill(AliveColor);
-                }
-                gGrids[rGrid][r][c] = gGrids[dGrid][r][c];
-                CP_Graphics_DrawRect(r * CELL_LENGTH, c * CELL_LENGTH, CELL_LENGTH, CELL_LENGTH);
+    }
+    for (int r = 0; r < GOL_GRID_ROWS; r++) {
+        for (int c = 0; c < GOL_GRID_COLS; c++) {
+            CP_Settings_Fill(DeadColor);
+            if (gGrids[dGrid][r][c] == GOL_ALIVE) {
+                CP_Settings_Fill(AliveColor);
             }
+            gGrids[rGrid][r][c] = gGrids[dGrid][r][c];
+            CP_Graphics_DrawRect(r * CELL_LENGTH, c * CELL_LENGTH, CELL_LENGTH, CELL_LENGTH);
         }
     }
-    
     rGrid = rGrid == 1 ? 0 : 1;
     dGrid = dGrid == 1 ? 0 : 1;
 
