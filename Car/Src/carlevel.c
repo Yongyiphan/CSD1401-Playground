@@ -90,7 +90,7 @@ void Car_Level_Update()
 	}
 
 
-	if (CP_Input_KeyDown(KEY_M)) {
+	if (CP_Input_KeyDown(KEY_Q)) {
 		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 		printf("Bye bye car\n");
 	}

@@ -13,10 +13,6 @@
   <ItemGroup>
     <ClCompile Include="Src\game.c" />
     <ClCompile Include="Src\main.c" />
-    <ClCompile Include="Src\utils.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Inc\utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
